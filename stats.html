@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Stats - Ahmed Samir</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Additional styles for stats page */
+        #stats-hero {
+            padding: 80px 0;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80') no-repeat center center/cover;
+            color: #fff;
+            text-align: center;
+        }
+
+        #stats-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        #stats-hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        #stats-content {
+            padding: 60px 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .stat-card {
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .stat-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 1.2rem;
+            color: #666;
+        }
+
+        .skills-section {
+            background: var(--light-color);
+            padding: 60px 0;
+            margin-top: 60px;
+        }
+
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .skill-category {
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .skill-category h3 {
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .skill-item {
+            margin-bottom: 20px;
+        }
+
+        .skill-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+
+        .skill-name {
+            font-weight: bold;
+        }
+
+        .skill-level {
+            color: var(--primary-color);
+        }
+
+        .skill-bar {
+            height: 10px;
+            background: #e0e0e0;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: var(--primary-color);
+            border-radius: 5px;
+        }
+
+        .timeline-section {
+            padding: 60px 0;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 40px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: var(--primary-color);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 50px;
+            width: 45%;
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 55%;
+        }
+
+        .timeline-date {
+            position: absolute;
+            top: 0;
+            background: var(--primary-color);
+            color: #fff;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-date {
+            right: 0;
+        }
+
+        .timeline-item:nth-child(even) .timeline-date {
+            left: 0;
+        }
+
+        .timeline-content {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .timeline-content h3 {
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+        }
+
+        .timeline-content h4 {
+            color: var(--primary-color);
+            font-weight: normal;
+            margin-bottom: 10px;
+        }
+
+        @media(max-width: 768px) {
+            .timeline::before {
+                left: 30px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                left: 0 !important;
+                padding-left: 70px;
+            }
+
+            .timeline-date {
+                left: 0 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">AhmedSamir</div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="portfolio.html">Portfolio</a></li>
+                    <li><a href="projects.html">Projects</a></li>
+                    <li><a href="stats.html" class="active">Stats</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="stats-hero">
+        <div class="container">
+            <h1>My Stats</h1>
+            <p>A look at my experience, skills, and achievements</p>
+        </div>
+    </section>
+
+    <section id="stats-content">
+        <div class="container">
+            <h2 class="section-title">Experience Overview</h2>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Projects Completed</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-number">30+</div>
+                    <div class="stat-label">Happy Clients</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <div class="stat-number">7</div>
+                    <div class="stat-label">Years Experience</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <div class="stat-number">12</div>
+                    <div class="stat-label">Awards Won</div>
+                </div>
+            </div>
+
+            <div class="skills-section">
+                <div class="container">
+                    <h2 class="section-title">Technical Skills</h2>
+
+                    <div class="skills-container">
+                        <div class="skill-category">
+                            <h3>Frontend Development</h3>
+
+                            <div class="skill-item">
+                                <div class="skill-header">
+                                    <span class="skill-name">HTML/CSS</span>
+                                    <span class="skill-level">95%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 95%"></div>
+                                </div>
+                            </div>
+
+                            <div class="skill-item">
+                                <div class="skill-header">
+                                    <span class="skill-name">JavaScript</span>
+                                    <span class="skill-level">90%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 90%"></div>
+                                </div>
+                            </div>
+
+                            <div class="skill-item">
+                                <div class="skill-header">
+                                    <span class="skill-name">React</span>
+                                    <span class="skill-level">85%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 85%"></div>
+                                </div>
+                            </div>
+
+                            <div class="skill-item">
+                                <div class="skill-header">
+                                    <span class="skill-name">Vue.js</span>
+                                    <span class="skill-level">80%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 80%"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="skill-category">
+                            <h3>Backend Development</h3>
+
+                            <div class="skill-item">
+                                <div class="skill-header">
+                                    <span class="skill-name">Node.js</span>
+                                    <span class="skill-level">85%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 85%"></div>
+                                </div>
+                            </div>
+
+                            <div class="skill-item">
+                                <div class="skill-header">
+                                    <span class="skill-name">Python</span>
+                                    <span class="skill-level">80%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 80%"></div>
+                                </div>
+                            </div>
+
+                            <div class="skill-item">
+                                <div class="skill-header">
+                                    <span class="skill-name">PHP</span>
+                                    <span class="skill-level">75%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 75%"></div>
+                                </div>
+                            </div>
+
+                            <div class="skill-item">
+                                <div class="skill-header">
+                                    <span class="skill-name">REST APIs</span>
+                                    <span class="skill-level">90%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 90%"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="skill-category">
+                            <h3>Database & Tools</h3>
+
+                            <div class="skill-item">
+                                <div class="skill-header">
+                                    <span class="skill-name">MySQL</span>
+                                    <span class="skill-level">85%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 85%"></div>
+                                </div>
+                            </div>
+
+                            <div class="skill-item">
+                                <div class="skill-header">
+                                    <span class="skill-name">MongoDB</span>
+                                    <span class="skill-level">80%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 80%"></div>
+                                </div>
+                            </div>
+
+                            <div class="skill-item">
+                                <div class="skill-header">
+                                    <span class="skill-name">Git</span>
+                                    <span class="skill-level">90%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 90%"></div>
+                                </div>
+                            </div>
+
+                            <div class="skill-item">
+                                <div class="skill-header">
+                                    <span class="skill-name">Docker</span>
+                                    <span class="skill-level">75%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 75%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="timeline-section">
+        <div class="container">
+            <h2 class="section-title">Career Milestones</h2>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">2023</div>
+                    <div class="timeline-content">
+                        <h3>Senior Full Stack Developer</h3>
+                        <h4>Tech Innovations Inc.</h4>
+                        <p>Leading a team of developers and architecting complex web applications for enterprise clients.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">2020</div>
+                    <div class="timeline-content">
+                        <h3>Full Stack Developer</h3>
+                        <h4>Digital Solutions Ltd.</h4>
+                        <p>Developed and maintained multiple web applications using modern JavaScript frameworks and Node.js.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">2018</div>
+                    <div class="timeline-content">
+                        <h3>Frontend Developer</h3>
+                        <h4>Creative Web Agency</h4>
+                        <p>Created responsive and interactive user interfaces for various client websites.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">2016</div>
+                    <div class="timeline-content">
+                        <h3>Junior Web Developer</h3>
+                        <h4>StartUp Hub</h4>
+                        <p>Started my career as a web developer, learning the fundamentals of web development.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Ahmed Samir. All rights reserved.</p>
+            <div class="social">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-github"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Animate skill bars on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const skillBars = document.querySelectorAll('.skill-progress');
+
+            // Set initial width to 0
+            skillBars.forEach(bar => {
+                bar.style.width = '0%';
+            });
+
+            // Function to animate skill bars
+            function animateSkills() {
+                skillBars.forEach(bar => {
+                    const targetWidth = bar.getAttribute('style').match(/width: (\d+%)/)[1];
+
+                    // Animate from 0 to target width
+                    let currentWidth = 0;
+                    const increment = 1;
+                    const interval = setInterval(() => {
+                        currentWidth += increment;
+                        bar.style.width = currentWidth + '%';
+
+                        if (currentWidth >= parseInt(targetWidth)) {
+                            clearInterval(interval);
+                        }
+                    }, 20);
+                });
+            }
+
+            // Start animation when skills section is in view
+            const skillsSection = document.querySelector('.skills-section');
+
+            // If IntersectionObserver is supported
+            if ('IntersectionObserver' in window) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            animateSkills();
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.5 });
+
+                observer.observe(skillsSection);
+            } else {
+                // Fallback for browsers that don't support IntersectionObserver
+                animateSkills();
+            }
+        });
+    </script>
+</body>
+</html>

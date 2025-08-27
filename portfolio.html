@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Ahmed Samir</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Additional styles for portfolio page */
+        #portfolio-hero {
+            padding: 80px 0;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80') no-repeat center center/cover;
+            color: #fff;
+            text-align: center;
+        }
+
+        #portfolio-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        #portfolio-hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        #portfolio-content {
+            padding: 60px 0;
+        }
+
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+            gap: 15px;
+        }
+
+        .filter-btn {
+            background: #fff;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--primary-color);
+            color: #fff;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .portfolio-item {
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-10px);
+        }
+
+        .portfolio-img {
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .portfolio-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .portfolio-item:hover .portfolio-img img {
+            transform: scale(1.1);
+        }
+
+        .portfolio-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+
+        .portfolio-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .portfolio-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: #fff;
+            border-radius: 50%;
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .portfolio-links a:hover {
+            transform: scale(1.1);
+        }
+
+        .portfolio-info {
+            padding: 20px;
+        }
+
+        .portfolio-info h3 {
+            margin-bottom: 10px;
+            color: var(--secondary-color);
+        }
+
+        .portfolio-info p {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .portfolio-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            background: var(--light-color);
+            color: var(--primary-color);
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+        }
+
+        .featured-portfolio {
+            margin-bottom: 60px;
+        }
+
+        .featured-portfolio h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--secondary-color);
+        }
+
+        .featured-item {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .featured-img {
+            height: 400px;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .featured-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .featured-content {
+            padding: 20px;
+        }
+
+        .featured-content h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+        }
+
+        .featured-content p {
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--primary-color);
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s ease;
+        }
+
+        .btn:hover {
+            background: var(--secondary-color);
+        }
+
+        @media(max-width: 768px) {
+            .featured-item {
+                grid-template-columns: 1fr;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">AhmedSamir</div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="portfolio.html" class="active">Portfolio</a></li>
+                    <li><a href="projects.html">Projects</a></li>
+                    <li><a href="stats.html">Stats</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="portfolio-hero">
+        <div class="container">
+            <h1>My Portfolio</h1>
+            <p>A showcase of my best work and creative solutions</p>
+        </div>
+    </section>
+
+    <section id="portfolio-content">
+        <div class="container">
+            <div class="featured-portfolio">
+                <h2>Featured Project</h2>
+                <div class="featured-item">
+                    <div class="featured-img">
+                        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80" alt="Featured Project">
+                    </div>
+                    <div class="featured-content">
+                        <h3>E-Commerce Platform</h3>
+                        <p>A comprehensive e-commerce solution with advanced features including real-time inventory management, secure payment processing, and personalized recommendations. Built with modern web technologies to ensure optimal performance and user experience.</p>
+                        <a href="portfolio-detail.html" class="btn">View Project</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="web">Web Design</button>
+                <button class="filter-btn" data-filter="mobile">Mobile Apps</button>
+                <button class="filter-btn" data-filter="ui">UI/UX</button>
+                <button class="filter-btn" data-filter="branding">Branding</button>
+            </div>
+
+            <div class="portfolio-grid">
+                <div class="portfolio-item" data-category="web">
+                    <div class="portfolio-img">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80" alt="Project 1">
+                        <div class="portfolio-overlay">
+                            <div class="portfolio-links">
+                                <a href="portfolio-detail.html"><i class="fas fa-link"></i></a>
+                                <a href="#"><i class="fas fa-search"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>Corporate Website</h3>
+                        <p>A modern, responsive website for a tech company with interactive elements.</p>
+                        <div class="portfolio-tags">
+                            <span class="tag">HTML</span>
+                            <span class="tag">CSS</span>
+                            <span class="tag">JavaScript</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item" data-category="mobile">
+                    <div class="portfolio-img">
+                        <img src="https://images.unsplash.com/photo-1551739440-5dd934d3a94a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80" alt="Project 2">
+                        <div class="portfolio-overlay">
+                            <div class="portfolio-links">
+                                <a href="portfolio-detail.html"><i class="fas fa-link"></i></a>
+                                <a href="#"><i class="fas fa-search"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>Health Tracker App</h3>
+                        <p>A mobile application for tracking health metrics and fitness goals.</p>
+                        <div class="portfolio-tags">
+                            <span class="tag">React Native</span>
+                            <span class="tag">Firebase</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item" data-category="ui">
+                    <div class="portfolio-img">
+                        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80" alt="Project 3">
+                        <div class="portfolio-overlay">
+                            <div class="portfolio-links">
+                                <a href="portfolio-detail.html"><i class="fas fa-link"></i></a>
+                                <a href="#"><i class="fas fa-search"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>Dashboard Design</h3>
+                        <p>Analytics dashboard with data visualization and interactive charts.</p>
+                        <div class="portfolio-tags">
+                            <span class="tag">UI Design</span>
+                            <span class="tag">Data Viz</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item" data-category="branding">
+                    <div class="portfolio-img">
+                        <img src="https://images.unsplash.com/photo-1551698618-1dfe5d97d256?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80" alt="Project 4">
+                        <div class="portfolio-overlay">
+                            <div class="portfolio-links">
+                                <a href="portfolio-detail.html"><i class="fas fa-link"></i></a>
+                                <a href="#"><i class="fas fa-search"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>Brand Identity</h3>
+                        <p>Complete brand identity package including logo, colors, and guidelines.</p>
+                        <div class="portfolio-tags">
+                            <span class="tag">Branding</span>
+                            <span class="tag">Logo Design</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item" data-category="web">
+                    <div class="portfolio-img">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8&auto=format&fit=crop&w=1770&q=80" alt="Project 5">
+                        <div class="portfolio-overlay">
+                            <div class="portfolio-links">
+                                <a href="portfolio-detail.html"><i class="fas fa-link"></i></a>
+                                <a href="#"><i class="fas fa-search"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>Online Learning Platform</h3>
+                        <p>Educational platform with video courses and interactive quizzes.</p>
+                        <div class="portfolio-tags">
+                            <span class="tag">Web Development</span>
+                            <span class="tag">Education</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item" data-category="mobile">
+                    <div class="portfolio-img">
+                        <img src="https://images.unsplash.com/photo-1551739440-5dd934d3a94a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80" alt="Project 6">
+                        <div class="portfolio-overlay">
+                            <div class="portfolio-links">
+                                <a href="portfolio-detail.html"><i class="fas fa-link"></i></a>
+                                <a href="#"><i class="fas fa-search"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>Food Delivery App</h3>
+                        <p>Mobile application for food ordering with real-time tracking.</p>
+                        <div class="portfolio-tags">
+                            <span class="tag">iOS</span>
+                            <span class="tag">Android</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Ahmed Samir. All rights reserved.</p>
+            <div class="social">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-github"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
