@@ -1,4 +1,4 @@
-# Personal Website!
+# Personal Website
 
 A modern, responsive personal website built with HTML, CSS, and JavaScript.
 
